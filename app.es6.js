@@ -17,6 +17,7 @@ const decode = buff => (
 // Setup Express app
 const app = require('express')()
 app.set('port', process.env.PORT || 4050)
+app.set('host', process.env.HOST || '127.0.0.1')
 
 // Middleware
 app.use(require('morgan')('dev'))
@@ -31,4 +32,4 @@ app.post('/decode', (req, res) => res.send(decode(req.body)))
 
 app.use((req, res) => res.sendStatus(404))
 
-app.listen(app.get('port'), _ => console.log(`Running on port ${app.get('port')}`))
+app.listen(app.get('port'), app.get('host'), _ => console.log(`Listening on ${app.get('host')}:${app.get('port')}`))
